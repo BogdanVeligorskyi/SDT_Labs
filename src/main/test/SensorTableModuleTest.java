@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import ua.cn.stu.remotelabs.ITableModule;
 import ua.cn.stu.remotelabs.Sensor;
 import ua.cn.stu.remotelabs.SensorTableModule;
 
@@ -16,7 +15,7 @@ import ua.cn.stu.remotelabs.SensorTableModule;
 public class SensorTableModuleTest {
 
 	private static EJBContainer container;
-	private static ITableModule instance;
+	private static SensorTableModule instance;
 	
 	@BeforeClass
 	public static void setupClass() throws Exception {
@@ -28,7 +27,7 @@ public class SensorTableModuleTest {
 		("java:global/classes/SensorTableModule", 
 				sensorModule);
 		instance = 
-				(ITableModule) container.getContext().
+				(SensorTableModule) container.getContext().
 				lookup("java:global/classes/SensorTableModule");
 	}
 		
@@ -94,12 +93,12 @@ public class SensorTableModuleTest {
 				find(Sensor.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.edit(sampleSensor, 0);
+		int result = instance.edit(sampleSensor, -5);
 		assertEquals(1, result);
 		sampleSensor = 
 				new Sensor(-5, "DHT-22", 
 						"Humidity", true, 7);
-		result = instance.edit(sampleSensor, -5);
+		result = instance.edit(sampleSensor, 7);
 		assertEquals(1, result);	
 	}
 	
@@ -116,7 +115,7 @@ public class SensorTableModuleTest {
 				find(Sensor.class, 0)).
 		thenReturn(sampleSensor);			
 		instance.setEntityManager(entityManager);
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(0, result);
 	}
 	
@@ -133,9 +132,9 @@ public class SensorTableModuleTest {
 				find(Sensor.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(1, result);
-		result = instance.delete(-5);
+		result = instance.remove(-5);
 		assertEquals(1, result);	
 	}
 	
@@ -150,7 +149,7 @@ public class SensorTableModuleTest {
 				find(Sensor.class, -3)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		sampleSensor = (Sensor) instance.findById(-3);
+		sampleSensor = (Sensor) instance.find(-3);
 		assertEquals(null, sampleSensor);	
 	}
 	
@@ -168,7 +167,7 @@ public class SensorTableModuleTest {
 		thenReturn(sensor);
 		instance.setEntityManager(entityManager);	
 		Sensor sampleSensor = 
-				(Sensor) instance.findById(2);
+				(Sensor) instance.find(2);
 		assertEquals(sampleSensor, sensor);	
 	}
 	

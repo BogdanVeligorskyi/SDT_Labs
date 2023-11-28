@@ -2,71 +2,30 @@ package ua.cn.stu.remotelabs;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 
 @Stateless
 @Local
-public class RoleTableModule implements ITableModule {
-
-	private EntityManager em;
+public class RoleTableModule extends GenericService {	
 
 	// add new role
-	@Override
-	public int add(Object obj) {
-		
-		Role role = (Role) obj;
-		if (role == null) {
-			return 1;
-		}
-		em.persist(role);
-		// query to the DB
-		return 0;
+	public int add(Role role) {
+		return super.create(role);
 	}
 
 	// edit existing role
-	@Override
-	public int edit(Object obj, int id) {
-		Role role = findById(id);
-		Role roleObj = (Role) obj;
-		if (obj == null || role == null) {
-			return 1;
-		}
-		role.setId(roleObj.getId());
-		role.setRoleName(roleObj.getRoleName());
-		em.merge(role);
-		// query to the DB
-		return 0;
+	public int edit(Role role, int id) {
+		return super.update(role, "ua.cn.stu.remotelabs.Role", id);
 	}
 
 	// delete role by id
-	@Override
-	public int delete(int id) {
-		Role role = findById(id);
-		if (role == null) {
-			return 1;
-		}
-		em.remove(role);
-		// query to the DB
-		return 0;
+	public int remove(int id) {
+		return super.delete("ua.cn.stu.remotelabs.Role", id);
 	}
 
 	// find role by id
-	@Override
-	public Role findById(int id) {
-		if (id < 0) {
-			return null;
-		} else {
-		// query to the DB
-		return em.find(Role.class, id);
-		}
+	public Role find(int id) {
+		return (Role) super.read("ua.cn.stu.remotelabs.Role", id);
 	}
-	
-	public EntityManager getEntityManager() {
-		return em;
-	}
-	
-	public void setEntityManager(EntityManager em) {
-		this.em = em;
-	}
-	
+
+
 }

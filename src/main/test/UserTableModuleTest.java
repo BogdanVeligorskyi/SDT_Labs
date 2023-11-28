@@ -10,7 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import ua.cn.stu.remotelabs.ITableModule;
 import ua.cn.stu.remotelabs.User;
 import ua.cn.stu.remotelabs.UserTableModule;
 
@@ -18,7 +17,7 @@ import ua.cn.stu.remotelabs.UserTableModule;
 public class UserTableModuleTest {
 	
 	private static EJBContainer container;
-	private static ITableModule instance;
+	private static UserTableModule instance;
 	
 	@BeforeClass
 	public static void setupClass() throws Exception {
@@ -30,7 +29,7 @@ public class UserTableModuleTest {
 		("java:global/classes/UserTableModule", 
 				userModule);
 		instance = 
-				(ITableModule) container.getContext().
+				(UserTableModule) container.getContext().
 				lookup("java:global/classes/UserTableModule");
 	}
 	
@@ -98,7 +97,7 @@ public class UserTableModuleTest {
 				find(User.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);
-		int result = instance.edit(sampleUser, 0);
+		int result = instance.edit(sampleUser, -5);
 		assertEquals(1, result);
 		sampleUser = new User(-5, "LastName", "FirstName", 
 				"AddName", "example@com", 
@@ -121,7 +120,7 @@ public class UserTableModuleTest {
 				find(User.class, 1)).
 		thenReturn(sampleUser);			
 		instance.setEntityManager(entityManager);
-		int result = instance.delete(1);
+		int result = instance.remove(1);
 		assertEquals(0, result);
 	}
 	
@@ -138,9 +137,9 @@ public class UserTableModuleTest {
 				find(User.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(1, result);
-		result = instance.delete(-5);
+		result = instance.remove(-5);
 		assertEquals(1, result);	
 	}
 	
@@ -155,7 +154,7 @@ public class UserTableModuleTest {
 				find(User.class, -3)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		sampleUser = (User) instance.findById(-3);
+		sampleUser = (User) instance.find(-3);
 		assertEquals(null, sampleUser);	
 	}
 	
@@ -173,7 +172,7 @@ public class UserTableModuleTest {
 				find(User.class, 2)).
 		thenReturn(user);
 		instance.setEntityManager(entityManager);	
-		User sampleUser = (User) instance.findById(2);
+		User sampleUser = (User) instance.find(2);
 		assertEquals(sampleUser, user);	
 	}
 	

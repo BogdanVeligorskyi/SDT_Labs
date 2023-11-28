@@ -8,28 +8,27 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import ua.cn.stu.remotelabs.Group;
-import ua.cn.stu.remotelabs.GroupTableModule;
-import ua.cn.stu.remotelabs.ITableModule;
+import ua.cn.stu.remotelabs.Grupa;
+import ua.cn.stu.remotelabs.GrupaTableModule;
 
-//test methods of GroupTableModule
-public class GroupTableModuleTest {
+//test methods of GrupaTableModule
+public class GrupaTableModuleTest {
 	
 	private static EJBContainer container;
-	private static ITableModule instance;
+	private static GrupaTableModule instance;
 	
 	@BeforeClass
 	public static void setupClass() throws Exception {
-		GroupTableModule groupModule 
-		= new GroupTableModule();
+		GrupaTableModule groupModule 
+		= new GrupaTableModule();
 		container = javax.ejb.embeddable.
 				EJBContainer.createEJBContainer();
 		container.getContext().bind
-		("java:global/classes/GroupTableModule", 
+		("java:global/classes/GrupaTableModule", 
 				groupModule);
 		instance = 
-				(ITableModule) container.getContext().
-				lookup("java:global/classes/GroupTableModule");
+				(GrupaTableModule) container.getContext().
+				lookup("java:global/classes/GrupaTableModule");
 	}
 		
 	@AfterClass
@@ -41,7 +40,7 @@ public class GroupTableModuleTest {
 	public void addReturn0(){
 		System.out.println
 		("--GROUP_TABLE_MODULE_TEST:add_return:0--");
-		Group sampleGroup = new Group(0, "MKI-231");
+		Grupa sampleGroup = new Grupa(0, "MKI-231");
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);	
 		instance.setEntityManager(entityManager);
@@ -53,7 +52,7 @@ public class GroupTableModuleTest {
 	public void addReturn1(){
 		System.out.println
 		("--GROUP_TABLE_MODULE_TEST:add_return:1--");
-		Group sampleGroup = null;
+		Grupa sampleGroup = null;
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);	
 		instance.setEntityManager(entityManager);
@@ -65,10 +64,10 @@ public class GroupTableModuleTest {
 	public void editReturn0(){
 		System.out.println
 		("--GROUP_TABLE_MODULE_TEST:edit_return:0--");
-		Group sampleGroup = new Group(0, "MKI-231");	
+		Grupa sampleGroup = new Grupa(0, "MKI-231");	
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
-		Mockito.when(entityManager.find(Group.class, 0)).
+		Mockito.when(entityManager.find(Grupa.class, 0)).
 		thenReturn(sampleGroup);			
 		instance.setEntityManager(entityManager);
 		int result = instance.edit(sampleGroup, 0);
@@ -79,17 +78,17 @@ public class GroupTableModuleTest {
 	public void editReturn1() {
 		System.out.println
 		("--GROUP_TABLE_MODULE_TEST:edit_return:1--");
-		Group sampleGroup = null;
+		Grupa sampleGroup = null;
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.find(null, 0)).
 		thenReturn(null);
-		Mockito.when(entityManager.find(Group.class, -5)).
+		Mockito.when(entityManager.find(Grupa.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.edit(sampleGroup, 0);
+		int result = instance.edit(sampleGroup, -5);
 		assertEquals(1, result);
-		sampleGroup = new Group(-5, "Group");
+		sampleGroup = new Grupa(-5, "Group");
 		result = instance.edit(sampleGroup, -5);
 		assertEquals(1, result);	
 	}
@@ -98,13 +97,13 @@ public class GroupTableModuleTest {
 	public void deleteReturn0(){
 		System.out.println(
 				"--GROUP_TABLE_MODULE_TEST:delete_return:0--");
-		Group sampleGroup = new Group(0, "MRA-221");	
+		Grupa sampleGroup = new Grupa(0, "MRA-221");	
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
-		Mockito.when(entityManager.find(Group.class, 0)).
+		Mockito.when(entityManager.find(Grupa.class, 0)).
 		thenReturn(sampleGroup);			
 		instance.setEntityManager(entityManager);
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(0, result);
 	}
 	
@@ -116,12 +115,12 @@ public class GroupTableModuleTest {
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.find(null, 0)).
 		thenReturn(null);
-		Mockito.when(entityManager.find(Group.class, -5)).
+		Mockito.when(entityManager.find(Grupa.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(1, result);
-		result = instance.delete(-5);
+		result = instance.remove(-5);
 		assertEquals(1, result);	
 	}
 	
@@ -129,13 +128,13 @@ public class GroupTableModuleTest {
 	public void findByIdReturnNull() {
 		System.out.println
 		("--GROUP_TABLE_MODULE_TEST:findById_return:null--");
-		Group sampleGroup = null;
+		Grupa sampleGroup = null;
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
-		Mockito.when(entityManager.find(Group.class, -3)).
+		Mockito.when(entityManager.find(Grupa.class, -3)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		sampleGroup = (Group) instance.findById(-3);
+		sampleGroup = (Grupa) instance.find(-3);
 		assertEquals(null, sampleGroup);	
 	}
 	
@@ -143,13 +142,13 @@ public class GroupTableModuleTest {
 	public void findByIdReturnNonNull() {
 		System.out.println
 		("--GROUP_TABLE_MODULE_TEST:findById_return:non_null--");
-		Group group = new Group(2, "MPI-221");
+		Grupa group = new Grupa(2, "MPI-221");
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
-		Mockito.when(entityManager.find(Group.class, 2)).
+		Mockito.when(entityManager.find(Grupa.class, 2)).
 		thenReturn(group);
 		instance.setEntityManager(entityManager);	
-		Group sampleGroup = (Group) instance.findById(2);
+		Grupa sampleGroup = (Grupa) instance.find(2);
 		assertEquals(sampleGroup, group);	
 	}
 }

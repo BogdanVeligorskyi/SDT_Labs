@@ -5,7 +5,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
-import ua.cn.stu.remotelabs.ITableModule;
+
 import ua.cn.stu.remotelabs.Role;
 import ua.cn.stu.remotelabs.RoleTableModule;
 
@@ -13,7 +13,7 @@ import ua.cn.stu.remotelabs.RoleTableModule;
 public class RoleTableModuleTest {
 	
 	private static EJBContainer container;
-	private static ITableModule instance;
+	private static RoleTableModule instance;
 	
 	@BeforeClass
 	public static void setupClass() throws Exception {
@@ -25,7 +25,7 @@ public class RoleTableModuleTest {
 		("java:global/classes/RoleTableModule", 
 				roleModule);
 		instance = 
-				(ITableModule) container.getContext().
+				(RoleTableModule) container.getContext().
 				lookup("java:global/classes/RoleTableModule");
 	}
 		
@@ -87,7 +87,7 @@ public class RoleTableModuleTest {
 				(Role.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.edit(sampleRole, 0);
+		int result = instance.edit(sampleRole, -5);
 		assertEquals(1, result);
 		sampleRole = new Role(-6, "Student");
 		result = instance.edit(sampleRole, -6);
@@ -105,7 +105,7 @@ public class RoleTableModuleTest {
 				find(Role.class, 0)).
 		thenReturn(sampleRole);			
 		instance.setEntityManager(entityManager);
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(0, result);
 	}
 	
@@ -122,9 +122,9 @@ public class RoleTableModuleTest {
 				find(Role.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(1, result);
-		result = instance.delete(-5);
+		result = instance.remove(-5);
 		assertEquals(1, result);	
 	}
 	
@@ -139,7 +139,7 @@ public class RoleTableModuleTest {
 				find(Role.class, -3)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		sampleRole = (Role) instance.findById(-3);
+		sampleRole = (Role) instance.find(-3);
 		assertEquals(null, sampleRole);	
 	}
 	
@@ -154,7 +154,7 @@ public class RoleTableModuleTest {
 				find(Role.class, 2)).
 		thenReturn(role);
 		instance.setEntityManager(entityManager);	
-		Role sampleRole = (Role) instance.findById(2);
+		Role sampleRole = (Role) instance.find(2);
 		assertEquals(sampleRole, role);	
 	}
 		

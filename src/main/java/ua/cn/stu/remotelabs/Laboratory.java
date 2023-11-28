@@ -1,9 +1,8 @@
 package ua.cn.stu.remotelabs;
 
 // Domain object "Laboratory"
-public class Laboratory {
+public class Laboratory extends DomainObject {
 	
-	private int id;
 	private String labName;
 	private int facultyId;
 	
@@ -13,16 +12,8 @@ public class Laboratory {
 		this.facultyId = facultyId;
 	}
 
-	public int getId() {
-		return id;
-	}
-
 	public String getLabName() {
 		return labName;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setLabName(String labName) {

@@ -2,14 +2,11 @@ package ua.cn.stu.remotelabs;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 
 @Stateless
 @Local
-public class UserTableModule implements ITableModule {
-	
-	private EntityManager em;
-	
+public class UserTableModule extends GenericService {
+
 	// try to log into the system
 	public boolean login(User user, String username, String password) {
 		if (checkIfNotEmpty(username, password)) {
@@ -24,7 +21,7 @@ public class UserTableModule implements ITableModule {
 			return false;
 		}
 	}
-	
+
 	// check if user has entered username and password
 	public boolean checkIfNotEmpty(String username, String password) {
 		if (username != null && password != null && 
@@ -36,66 +33,23 @@ public class UserTableModule implements ITableModule {
 	}
 
 	// add new user
-	@Override
-	public int add(Object obj) {
-		User user = (User) obj;
-		if (user == null) {
-			return 1;
-		}
-		em.persist(user);
-		// query to the DB
-		return 0;
+	public int add(User user) {
+		return super.create(user);
 	}
 
 	// edit existing user
-	@Override
-	public int edit(Object obj, int id) {
-		User user = findById(id);
-		User userObj = (User) obj;
-		if (obj == null || user == null) {
-			return 1;
-		}
-		user.setId(userObj.getId());
-		user.setAddName(userObj.getAddName());
-		user.setFirstName(userObj.getFirstName());
-		user.setLastName(userObj.getLastName());
-		user.setEmail(userObj.getEmail());
-		user.setPassword(userObj.getPassword());
-		user.setGroupId(userObj.getGroupId());
-		user.setLaboratoryId(userObj.getLaboratoryId());
-		user.setFacultyId(userObj.getFacultyId());
-		user.setRoleId(userObj.getRoleId());
-		em.merge(user);
-		// query to the DB
-		return 0;
+	public int edit(User user, int id) {
+		return super.update(user, "ua.cn.stu.remotelabs.User", id);
 	}
-	
+
 	// delete user by id
-	@Override
-	public int delete(int id) {
-		User user = findById(id);
-		if (user == null) {
-			return 1;
-		}
-		em.remove(user);
-		// query to the DB
-		return 0;
+	public int remove(int id) {
+		return super.delete("ua.cn.stu.remotelabs.User", id);
 	}
 
 	// find user by id
-	@Override
-	public User findById(int id) {
-		if (id < 0) {
-			return null;
-		} else {
-		// query to the DB
-		return em.find(User.class, id);
-		}
+	public User find(int id) {
+		return (User) super.read("ua.cn.stu.remotelabs.User", id);
 	}
 
-	@Override
-	public void setEntityManager(EntityManager em) {
-		this.em = em;
-	}	
-	
 }

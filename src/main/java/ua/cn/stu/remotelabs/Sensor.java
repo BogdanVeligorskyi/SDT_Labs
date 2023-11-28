@@ -1,9 +1,8 @@
 package ua.cn.stu.remotelabs;
 
 // Domain object "Sensor"
-public class Sensor {
+public class Sensor extends DomainObject {
 	
-	private int id;
 	private String sensorName;
 	private String measurement;
 	private boolean isActive;
@@ -19,10 +18,6 @@ public class Sensor {
 		this.laboratoryId = laboratoryId;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	
 	public String getSensorName() {
 		return sensorName;
 	}
@@ -33,10 +28,6 @@ public class Sensor {
 	
 	public boolean getIsActive() {
 		return isActive;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public void setSensorName(String sensorName) {

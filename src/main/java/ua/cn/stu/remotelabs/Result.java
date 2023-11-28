@@ -1,9 +1,8 @@
 package ua.cn.stu.remotelabs;
 
 // Domain object "Result"
-public class Result {
+public class Result extends DomainObject {
 	
-	private int id;
 	private double value;
 	private String mark;
 	private String datetime;
@@ -18,10 +17,6 @@ public class Result {
 		this.sensorId = sensorId;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	
 	public double getValue() {
 		return value;
 	}
@@ -32,10 +27,6 @@ public class Result {
 	
 	public String getDatetime() {
 		return datetime;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public void setValue(double value) {

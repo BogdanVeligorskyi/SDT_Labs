@@ -2,75 +2,29 @@ package ua.cn.stu.remotelabs;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 
 @Stateless
 @Local
-public class ResultTableModule implements ITableModule {
-
-	private EntityManager em;
+public class ResultTableModule extends GenericService {
 
 	// add new result
-	@Override
-	public int add(Object obj) {
-		
-		Result result = (Result) obj;
-		if (result == null) {
-			return 1;
-		}
-		em.persist(result);
-		// query to the DB
-		return 0;
+	public int add(Result result) {
+		return super.create(result);
 	}
 
 	// edit existing result
-	@Override
-	public int edit(Object obj, int id) {
-		Result result = findById(id);
-		Result resultObj = (Result) obj;
-		if (obj == null || result == null) {
-			return 1;
-		}
-		result.setId(resultObj.getId());
-		result.setValue(resultObj.getValue());
-		result.setDatetime(resultObj.getDatetime());
-		result.setMark(resultObj.getMark());
-		result.setSensorId(resultObj.getSensorId());
-		
-		em.merge(result);
-		// query to the DB
-		return 0;
+	public int edit(Result result, int id) {
+		return super.update(result, "ua.cn.stu.remotelabs.Result", id);
 	}
 
 	// delete result by id
-	@Override
-	public int delete(int id) {
-		Result result = findById(id);
-		if (result == null) {
-			return 1;
-		}
-		em.remove(result);
-		// query to the DB
-		return 0;
+	public int remove(int id) {
+		return super.delete("ua.cn.stu.remotelabs.Result", id);
 	}
 
 	// find result by id
-	@Override
-	public Result findById(int id) {
-		if (id < 0) {
-			return null;
-		} else {
-		// query to the DB
-		return em.find(Result.class, id);
-		}
+	public Result find(int id) {
+		return (Result) super.read("ua.cn.stu.remotelabs.Result", id);
 	}
-	
-	public EntityManager getEntityManager() {
-		return em;
-	}
-	
-	public void setEntityManager(EntityManager em) {
-		this.em = em;
-	}
-	
+
 }

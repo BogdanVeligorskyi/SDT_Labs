@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import ua.cn.stu.remotelabs.ITableModule;
 import ua.cn.stu.remotelabs.Result;
 import ua.cn.stu.remotelabs.ResultTableModule;
 
@@ -16,7 +15,7 @@ import ua.cn.stu.remotelabs.ResultTableModule;
 public class ResultTableModuleTest {
 
 	private static EJBContainer container;
-	private static ITableModule instance;
+	private static ResultTableModule instance;
 	
 	@BeforeClass
 	public static void setupClass() throws Exception {
@@ -28,7 +27,7 @@ public class ResultTableModuleTest {
 		("java:global/classes/ResultTableModule", 
 				resultModule);
 		instance = 
-				(ITableModule) container.getContext().
+				(ResultTableModule) container.getContext().
 				lookup("java:global/classes/ResultTableModule");
 	}
 		
@@ -94,7 +93,7 @@ public class ResultTableModuleTest {
 				find(Result.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.edit(sampleResult, 0);
+		int result = instance.edit(sampleResult, -5);
 		assertEquals(1, result);
 		sampleResult = new Result(-5, 5.8, "%", 
 				"19:11:07 20/10/2021", 5);
@@ -115,7 +114,7 @@ public class ResultTableModuleTest {
 				find(Result.class, 0)).
 		thenReturn(sampleResult);			
 		instance.setEntityManager(entityManager);
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(0, result);
 	}
 	
@@ -132,9 +131,9 @@ public class ResultTableModuleTest {
 				find(Result.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(1, result);
-		result = instance.delete(-5);
+		result = instance.remove(-5);
 		assertEquals(1, result);	
 	}
 	
@@ -148,7 +147,7 @@ public class ResultTableModuleTest {
 		Mockito.when(entityManager.find(Result.class, -3)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		sampleResult = (Result) instance.findById(-3);
+		sampleResult = (Result) instance.find(-3);
 		assertEquals(null, sampleResult);	
 	}
 	
@@ -164,7 +163,7 @@ public class ResultTableModuleTest {
 				find(Result.class, 2)).
 		thenReturn(result);
 		instance.setEntityManager(entityManager);	
-		Result sampleResult = (Result) instance.findById(2);
+		Result sampleResult = (Result) instance.find(2);
 		assertEquals(sampleResult, result);	
 	}
 	

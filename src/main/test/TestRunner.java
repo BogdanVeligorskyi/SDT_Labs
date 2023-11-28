@@ -97,7 +97,7 @@ public class TestRunner {
 			
 	    System.out.println(result.wasSuccessful());
 	    
-	    result = JUnitCore.runClasses(GroupTableModuleTest.class);
+	    result = JUnitCore.runClasses(GrupaTableModuleTest.class);
 		for (Failure failure : result.getFailures()) {
 	         System.out.println(failure.toString());
 	    }

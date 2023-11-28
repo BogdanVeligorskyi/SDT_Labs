@@ -8,13 +8,12 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import ua.cn.stu.remotelabs.Faculty;
 import ua.cn.stu.remotelabs.FacultyTableModule;
-import ua.cn.stu.remotelabs.ITableModule;
 
 // test methods of FacultyTableModule
 public class FacultyTableModuleTest {
 	
 	private static EJBContainer container;
-	private static ITableModule instance;
+	private static FacultyTableModule instance;
 	
 	@BeforeClass
 	public static void setupClass() throws Exception {
@@ -22,7 +21,7 @@ public class FacultyTableModuleTest {
 		container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
 		container.getContext().bind("java:global/classes/FacultyTableModule", facultyModule);
 		instance = 
-				(ITableModule) container.getContext().lookup("java:global/classes/FacultyTableModule");
+				(FacultyTableModule) container.getContext().lookup("java:global/classes/FacultyTableModule");
 	}
 		
 	@AfterClass
@@ -69,7 +68,7 @@ public class FacultyTableModuleTest {
 		Mockito.when(entityManager.find(null, 0)).thenReturn(null);
 		Mockito.when(entityManager.find(Faculty.class, -5)).thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.edit(sampleFaculty, 0);
+		int result = instance.edit(sampleFaculty, -5);
 		assertEquals(1, result);
 		sampleFaculty = new Faculty(-5, "Faculty");
 		result = instance.edit(sampleFaculty, -5);
@@ -83,7 +82,7 @@ public class FacultyTableModuleTest {
 		EntityManager entityManager = Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.find(Faculty.class, 0)).thenReturn(sampleFaculty);			
 		instance.setEntityManager(entityManager);
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(0, result);
 	}
 	
@@ -94,9 +93,9 @@ public class FacultyTableModuleTest {
 		Mockito.when(entityManager.find(null, 0)).thenReturn(null);
 		Mockito.when(entityManager.find(Faculty.class, -5)).thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(1, result);
-		result = instance.delete(-5);
+		result = instance.remove(-5);
 		assertEquals(1, result);	
 	}
 	
@@ -107,7 +106,7 @@ public class FacultyTableModuleTest {
 		EntityManager entityManager = Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.find(Faculty.class, -3)).thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		sampleFaculty = (Faculty) instance.findById(-3);
+		sampleFaculty = (Faculty) instance.find(-3);
 		assertEquals(null, sampleFaculty);	
 	}
 	
@@ -118,7 +117,7 @@ public class FacultyTableModuleTest {
 		EntityManager entityManager = Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.find(Faculty.class, 2)).thenReturn(faculty);
 		instance.setEntityManager(entityManager);	
-		Faculty sampleFaculty = (Faculty) instance.findById(2);
+		Faculty sampleFaculty = (Faculty) instance.find(2);
 		assertEquals(sampleFaculty, faculty);	
 	}
 	

@@ -10,13 +10,12 @@ import org.mockito.Mockito;
 
 import ua.cn.stu.remotelabs.Laboratory;
 import ua.cn.stu.remotelabs.LaboratoryTableModule;
-import ua.cn.stu.remotelabs.ITableModule;
 
 //test methods of LaboratoryTableModule
 public class LaboratoryTableModuleTest {
 
 	private static EJBContainer container;
-	private static ITableModule instance;
+	private static LaboratoryTableModule instance;
 	
 	@BeforeClass
 	public static void setupClass() throws Exception {
@@ -27,8 +26,7 @@ public class LaboratoryTableModuleTest {
 		container.getContext().bind
 		("java:global/classes/LaboratoryTableModule", 
 				labModule);
-		instance = 
-				(ITableModule) container.getContext().
+		instance = (LaboratoryTableModule) container.getContext().
 				lookup("java:global/classes/LaboratoryTableModule");
 	}
 		
@@ -87,7 +85,7 @@ public class LaboratoryTableModuleTest {
 		Mockito.when(entityManager.find(Laboratory.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.edit(sampleLab, 0);
+		int result = instance.edit(sampleLab, -5);
 		assertEquals(1, result);
 		sampleLab = new Laboratory(-5, "Laboratory", 5);
 		result = instance.edit(sampleLab, -5);
@@ -104,7 +102,7 @@ public class LaboratoryTableModuleTest {
 		Mockito.when(entityManager.find(Laboratory.class, 0)).
 		thenReturn(sampleLab);			
 		instance.setEntityManager(entityManager);
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(0, result);
 	}
 	
@@ -119,9 +117,9 @@ public class LaboratoryTableModuleTest {
 		Mockito.when(entityManager.find(Laboratory.class, -5)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		int result = instance.delete(0);
+		int result = instance.remove(0);
 		assertEquals(1, result);
-		result = instance.delete(-5);
+		result = instance.remove(-5);
 		assertEquals(1, result);	
 	}
 	
@@ -135,7 +133,7 @@ public class LaboratoryTableModuleTest {
 		Mockito.when(entityManager.find(Laboratory.class, -3)).
 		thenReturn(null);
 		instance.setEntityManager(entityManager);	
-		sampleLab = (Laboratory) instance.findById(-3);
+		sampleLab = (Laboratory) instance.find(-3);
 		assertEquals(null, sampleLab);	
 	}
 	
@@ -150,7 +148,7 @@ public class LaboratoryTableModuleTest {
 		thenReturn(lab);
 		instance.setEntityManager(entityManager);	
 		Laboratory sampleLab = (Laboratory) 
-				instance.findById(2);
+				instance.find(2);
 		assertEquals(sampleLab, lab);	
 	}
 	

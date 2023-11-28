@@ -1,27 +1,17 @@
 package ua.cn.stu.remotelabs;
 
 // Domain object "Faculty"
-public class Faculty {
+public class Faculty extends DomainObject {
 	
-	private int id;
 	private String facultyName;
-	
 	
 	public Faculty(int id, String facultyName) {
 		this.id = id;
 		this.facultyName = facultyName;
 	}
 
-	public int getId() {
-		return id;
-	}
-
 	public String getFacultyName() {
 		return facultyName;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setFacultyName(String facultyName) {

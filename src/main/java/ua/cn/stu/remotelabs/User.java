@@ -1,9 +1,8 @@
 package ua.cn.stu.remotelabs;
 
 // Domain Object "User"
-public class User {
+public class User extends DomainObject {
 	
-	private int id;
 	private String lastName;
 	private String firstName;
 	private String addName;
@@ -63,10 +62,6 @@ public class User {
 		this.laboratoryId = laboratoryId;
 	}
 
-	public int getId() {
-		return id;
-	}
-
 	public String getLastName() {
 		return lastName;
 	}
@@ -86,11 +81,7 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
