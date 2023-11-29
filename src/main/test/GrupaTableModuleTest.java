@@ -151,4 +151,17 @@ public class GrupaTableModuleTest {
 		Grupa sampleGroup = (Grupa) instance.find(2);
 		assertEquals(sampleGroup, group);	
 	}
+	
+	@Test
+	public void getStartYear() {
+		System.out.println
+		("--GROUP_TABLE_MODULE_TEST:getStartYear--");
+		int res = instance.getStartYear(null);
+		assertEquals(-1, res);
+		res = instance.getStartYear("-192");
+		assertEquals(-1, res);
+		res = instance.getStartYear("MKI-231");
+		assertEquals(2023, res);
+	}
+	
 }

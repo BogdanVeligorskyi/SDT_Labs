@@ -26,5 +26,22 @@ public class GrupaTableModule extends GenericService {
 	public Grupa find(int id) {
 		return (Grupa) super.read("ua.cn.stu.remotelabs.Grupa", id);
 	}
+	
+	// get year of student first year
+	// for instance, KI-191 ~ 2019
+	public int getStartYear(String grupaName) {
+		if (grupaName == null || !grupaName.contains("-")
+				|| grupaName.charAt(0) == '-' 
+				|| grupaName.charAt(grupaName.length()-1) == '-') {
+			return -1;
+		}
+		String[] grupaNameArr = grupaName.split("-");
+		String strYear = "20";
+		char[] grupaYearChar = grupaNameArr[1].toCharArray();
+		for (int i = 0; i < 2; i++) {
+			strYear += grupaYearChar[i];
+		}
+		return Integer.parseInt(strYear);
+	}
 
 }

@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import javax.ejb.embeddable.EJBContainer;
 import javax.persistence.EntityManager;
@@ -39,7 +41,7 @@ public class LaboratoryTableModuleTest {
 	public void addReturn0(){
 		System.out.println
 		("--LABORATORY_TABLE_MODULE_TEST:add_return:0--");
-		Laboratory sampleLab = new Laboratory(0, "MITT", 2);
+		Laboratory sampleLab = new Laboratory(0, "MITT");
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);	
 		instance.setEntityManager(entityManager);
@@ -63,7 +65,7 @@ public class LaboratoryTableModuleTest {
 	public void editReturn0(){
 		System.out.println
 		("--LABORATORY_TABLE_MODULE_TEST:edit_return:0--");
-		Laboratory sampleLab = new Laboratory(0, "MITT", 4);	
+		Laboratory sampleLab = new Laboratory(0, "MITT");	
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.find(Laboratory.class, 0)).
@@ -87,7 +89,7 @@ public class LaboratoryTableModuleTest {
 		instance.setEntityManager(entityManager);	
 		int result = instance.edit(sampleLab, -5);
 		assertEquals(1, result);
-		sampleLab = new Laboratory(-5, "Laboratory", 5);
+		sampleLab = new Laboratory(-5, "Laboratory");
 		result = instance.edit(sampleLab, -5);
 		assertEquals(1, result);	
 	}
@@ -96,7 +98,7 @@ public class LaboratoryTableModuleTest {
 	public void deleteReturn0(){
 		System.out.println
 		("--LABORATORY_TABLE_MODULE_TEST:delete_return:0--");
-		Laboratory sampleLab = new Laboratory(0, "FEIT", 6);	
+		Laboratory sampleLab = new Laboratory(0, "FEIT");	
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.find(Laboratory.class, 0)).
@@ -141,7 +143,7 @@ public class LaboratoryTableModuleTest {
 	public void findByIdReturnNonNull() {
 		System.out.println
 		("--LABORATORY_TABLE_MODULE_TEST:findById_return:non_null--");
-		Laboratory lab = new Laboratory(2,"EIT", 6);
+		Laboratory lab = new Laboratory(2,"EIT");
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.find(Laboratory.class, 2)).
@@ -151,5 +153,38 @@ public class LaboratoryTableModuleTest {
 				instance.find(2);
 		assertEquals(sampleLab, lab);	
 	}
+	
+	@Test
+	public void getCorps() {
+		System.out.println
+		("--LABORATORY_TABLE_MODULE_TEST:getCorps--");
+		int res = instance.getCorps(null);
+		assertEquals(-1, res);
+		res = instance.getCorps("4-95");
+		assertEquals(4, res);
+	}
+	
+	@Test
+	public void getRoom() {
+		System.out.println
+		("--LABORATORY_TABLE_MODULE_TEST:getRoom--");
+		int res = instance.getRoom(null);
+		assertEquals(-1, res);
+		res = instance.getRoom("4-95");
+		assertEquals(95, res);
+	}
+	
+	@Test
+	public void getCheckLabName() {
+		System.out.println
+		("--LABORATORY_TABLE_MODULE_TEST:getCheckLabName--");
+		boolean res = instance.checkLabName(null);
+		assertFalse(res);
+		res = instance.checkLabName("4-64");
+		assertTrue(res);
+	}
+	
+	
+	
 	
 }

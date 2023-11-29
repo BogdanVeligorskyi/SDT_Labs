@@ -26,6 +26,22 @@ public class RoleTableModule extends GenericService {
 	public Role find(int id) {
 		return (Role) super.read("ua.cn.stu.remotelabs.Role", id);
 	}
-
+	
+	// get some basic permissions
+	public String getPermissions(String roleName) {
+		if (roleName == null || roleName.length()==0) {
+			return null;
+		}
+		if (roleName.startsWith("Admin")) {
+			return "Admin permissions";
+		}
+		if (roleName.startsWith("Teacher")) {
+			return "Teacher permissions";
+		}
+		if (roleName.startsWith("Student")) {
+			return "Student permissions";
+		}
+		return "Unknown permissions";
+	}
 
 }

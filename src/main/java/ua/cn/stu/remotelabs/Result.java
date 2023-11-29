@@ -1,20 +1,28 @@
 package ua.cn.stu.remotelabs;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
 // Domain object "Result"
+@Entity
 public class Result extends DomainObject {
 	
 	private double value;
 	private String mark;
 	private String datetime;
-	private int sensorId;
+	
+	@ManyToOne(cascade= {CascadeType.ALL})
+	private Sensor sensor;
+	
+	public Result() {};
 	
 	public Result(int id, double value, String mark, 
-			String datetime, int sensorId) {
+			String datetime) {
 		this.id = id;
 		this.value = value;
 		this.mark = mark;
 		this.datetime = datetime;
-		this.sensorId = sensorId;
 	}
 	
 	public double getValue() {
@@ -39,14 +47,6 @@ public class Result extends DomainObject {
 	
 	public void setDatetime(String datetime) {
 		this.datetime = datetime;
-	}
-
-	public int getSensorId() {
-		return sensorId;
-	}
-
-	public void setSensorId(int sensorId) {
-		this.sensorId = sensorId;
 	}
 	
 }

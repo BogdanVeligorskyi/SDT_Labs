@@ -45,7 +45,7 @@ public class UserTableModuleTest {
 		User sampleUser = 
 				new User(0, "Vel", "Bogdan", 
 						"Add", "bvel@com", 
-						"erre", 1, 1, 1, 1);
+						"erre");
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);	
 		instance.setEntityManager(entityManager);
@@ -72,7 +72,7 @@ public class UserTableModuleTest {
 		User sampleUser = 
 				new User(1, "Vel", "Bogdan", 
 						"Add", "bvel@com", 
-						"erre", 1, 1, 1, 1);	
+						"erre");	
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.
@@ -101,7 +101,7 @@ public class UserTableModuleTest {
 		assertEquals(1, result);
 		sampleUser = new User(-5, "LastName", "FirstName", 
 				"AddName", "example@com", 
-				"pws", 1, 1, 1, 1);
+				"pws");
 		result = instance.edit(sampleUser, -5);
 		assertEquals(1, result);	
 	}
@@ -113,7 +113,7 @@ public class UserTableModuleTest {
 		User sampleUser = 
 				new User(1, "Vel", "Bogdan", 
 						"Add", "bvel@com", 
-						"erre", 1, 1, 1, 1);	
+						"erre");	
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.
@@ -165,7 +165,7 @@ public class UserTableModuleTest {
 		User user = 
 				new User(2, "Vel", "Bogdan", 
 						"Add", "bvel@com", 
-						"erre", 1, 1, 1, 1);
+						"erre");
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.
@@ -201,7 +201,7 @@ public class UserTableModuleTest {
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		User user = new User(2, "Vel", "Bogdan", "Add", 
-				"user@com", "1212", 1, 1, 1, 1);
+				"user@com", "1212");
 		instance.setEntityManager(entityManager);
 		boolean isEmpty = utm.login
 				(user, "", "1212");

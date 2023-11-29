@@ -121,4 +121,15 @@ public class FacultyTableModuleTest {
 		assertEquals(sampleFaculty, faculty);	
 	}
 	
+	@Test
+	public void testCreateAbbreviation() {
+		System.out.println("--FACULTY_TABLE_MODULE_TEST:create_abbreviation--");
+		String res = instance.createAbbreviation(null);
+		assertEquals(null, res);
+		res = instance.createAbbreviation("");
+		assertEquals("", res);
+		res = instance.createAbbreviation("Faculty of Information Technologies");
+		assertEquals("FIT", res);
+	}
+	
 }

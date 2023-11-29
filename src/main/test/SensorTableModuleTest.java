@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import javax.ejb.embeddable.EJBContainer;
 import javax.persistence.EntityManager;
@@ -42,7 +44,7 @@ public class SensorTableModuleTest {
 		("--SENSOR_TABLE_MODULE_TEST:add_return:0--");
 		Sensor sampleSensor = 
 				new Sensor(0, "DHT-22", 
-						"Humidity", true, 5);
+						"Humidity", true);
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);	
 		instance.setEntityManager(entityManager);
@@ -68,7 +70,7 @@ public class SensorTableModuleTest {
 		("--SENSOR_TABLE_MODULE_TEST:edit_return:0--");
 		Sensor sampleSensor = 
 				new Sensor(0, "DHT-22", 
-						"Humidity", true, 5);	
+						"Humidity", true);	
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.
@@ -97,7 +99,7 @@ public class SensorTableModuleTest {
 		assertEquals(1, result);
 		sampleSensor = 
 				new Sensor(-5, "DHT-22", 
-						"Humidity", true, 7);
+						"Humidity", true);
 		result = instance.edit(sampleSensor, 7);
 		assertEquals(1, result);	
 	}
@@ -108,7 +110,7 @@ public class SensorTableModuleTest {
 		("--SENSOR_TABLE_MODULE_TEST:delete_return:0--");
 		Sensor sampleSensor = 
 				new Sensor(0, "DHT-22", 
-						"Humidity", true, 5);	
+						"Humidity", true);	
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.
@@ -159,7 +161,7 @@ public class SensorTableModuleTest {
 		("--SENSOR_TABLE_MODULE_TEST:findById_return:non_null--");
 		Sensor sensor = 
 				new Sensor(2, "DHT-22", 
-						"Humidity", true, 5);
+						"Humidity", true);
 		EntityManager entityManager = 
 				Mockito.mock(EntityManager.class);
 		Mockito.when(entityManager.
@@ -169,6 +171,22 @@ public class SensorTableModuleTest {
 		Sensor sampleSensor = 
 				(Sensor) instance.find(2);
 		assertEquals(sampleSensor, sensor);	
+	}
+	
+	@Test
+	public void checkIfActiveSensor() {
+		System.out.println
+		("--SENSOR_TABLE_MODULE_TEST:checkIfActiveSensor--");
+		Sensor sensor = 
+				new Sensor(2, "DHT-22", 
+						"Humidity", false);
+		boolean res = instance.checkIfActiveSensor(null);
+		assertFalse(res);
+		res = instance.checkIfActiveSensor(sensor);
+		assertFalse(res);
+		sensor.setIsActive(true);
+		res = instance.checkIfActiveSensor(sensor);
+		assertTrue(res);
 	}
 	
 }

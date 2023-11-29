@@ -26,5 +26,31 @@ public class ResultTableModule extends GenericService {
 	public Result find(int id) {
 		return (Result) super.read("ua.cn.stu.remotelabs.Result", id);
 	}
+	
+	// check format of datetime
+	public boolean isDatetimeCorrect(String datetime) {
+		if (datetime == null 
+				|| datetime.length() == 0 
+				|| !datetime.contains(":")) {
+			return false;
+		}
+		return true;
+	}
+	
+	// check datetime interval (from datetime1 to datetime2)
+	public int checkDatetimeInterval(String datetime1, 
+			String datetime2) {
+		if (!isDatetimeCorrect(datetime1) 
+				|| !isDatetimeCorrect(datetime2)) {
+			return -1;
+		}
+		System.out.println(datetime1.compareToIgnoreCase(datetime2));
+		// compare if datetime1 is newer than datetime2
+		if (datetime1.compareToIgnoreCase(datetime2) > 0) {
+			
+			return -1;
+		}
+		return 0;
+	}
 
 }

@@ -157,5 +157,23 @@ public class RoleTableModuleTest {
 		Role sampleRole = (Role) instance.find(2);
 		assertEquals(sampleRole, role);	
 	}
+	
+	@Test
+	public void getPermissions() {
+		System.out.println
+		("--ROLE_TABLE_MODULE_TEST:getPermissions--");
+		
+		String res = instance.getPermissions("");
+		assertEquals(null, res);
+		res = instance.getPermissions("Administrator");
+		assertEquals("Admin permissions", res);	
+		res = instance.getPermissions("Teacherr");
+		assertEquals("Teacher permissions", res);
+		res = instance.getPermissions("Studentt");
+		assertEquals("Student permissions", res);	
+		res = instance.getPermissions("AAAAAA");
+		assertEquals("Unknown permissions", res);	
+	}
+	
 		
 }

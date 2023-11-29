@@ -26,5 +26,21 @@ public class FacultyTableModule extends GenericService {
 	public Faculty find(int id) {
 		return (Faculty) super.read("ua.cn.stu.remotelabs.Faculty", id);
 	}
+	
+	// create abbreviation of faculty name
+	public String createAbbreviation(String facultyName) {
+		if (facultyName == null) {
+			return null;
+		}
+		String abbreviation = "";
+		char[] facultyNameChar = facultyName.toCharArray();
+		for (int i = 0; i < facultyNameChar.length; i++) {
+			if (Character.isUpperCase(facultyNameChar[i])) {
+				abbreviation += facultyNameChar[i];
+			}
+		}
+		return abbreviation;
+	}
+	
 
 }

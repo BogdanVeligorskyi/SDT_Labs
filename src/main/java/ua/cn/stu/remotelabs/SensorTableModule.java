@@ -27,5 +27,12 @@ public class SensorTableModule extends GenericService {
 		return (Sensor) super.read("ua.cn.stu.remotelabs.Sensor", id);
 	}
 	
+	// check if selected sensor is active
+	public boolean checkIfActiveSensor(Sensor sensor) {
+		if (sensor == null || !sensor.getIsActive()) {
+			return false;
+		}
+		return true;
+	}
 	
 }

@@ -1,6 +1,13 @@
 package ua.cn.stu.remotelabs;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 // Domain Object "User"
+@Entity
 public class User extends DomainObject {
 	
 	private String lastName;
@@ -9,57 +16,36 @@ public class User extends DomainObject {
 	private String email;
 	private String password;
 	
-	private int groupId;
-	private int facultyId;
-	private int roleId;
-	private int laboratoryId;
+	@OneToOne(mappedBy="user")
+	private Faculty faculty;
+	
+	@OneToOne(mappedBy="user")
+	private Role role;
+	
+	@OneToOne(mappedBy="user")
+	private Grupa grupa;
+	
+	@OneToMany(mappedBy="user")
+	private List<Laboratory> laboratories;
+	
+	public List<Laboratory> getLaboratories() {
+		return this.laboratories;
+	}
+	
+	public void setLaboratories(List<Laboratory> laboratories) {
+		this.laboratories = laboratories;
+	}
+	
+	public User() {};
 	
 	public User(int id, String lastName, String firstName, 
-			String addName, String email, String password,
-			int groupId, int facultyId, int roleId,
-			int laboratoryId) {
+			String addName, String email, String password) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.addName = addName;
 		this.email = email;
 		this.password = password;
-		this.groupId = groupId;
-		this.facultyId = facultyId;
-		this.roleId = roleId;
-		this.laboratoryId = laboratoryId;
-	}
-
-	public int getGroupId() {
-		return groupId;
-	}
-
-	public int getFacultyId() {
-		return facultyId;
-	}
-
-	public int getRoleId() {
-		return roleId;
-	}
-
-	public int getLaboratoryId() {
-		return laboratoryId;
-	}
-
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
-	}
-
-	public void setFacultyId(int facultyId) {
-		this.facultyId = facultyId;
-	}
-
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
-	}
-
-	public void setLaboratoryId(int laboratoryId) {
-		this.laboratoryId = laboratoryId;
 	}
 
 	public String getLastName() {
