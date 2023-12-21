@@ -1,6 +1,22 @@
 import org.junit.runner.JUnitCore;
 import org.junit.runner.notification.Failure;
 
+import domain.FacultyTest;
+import domain.GroupTest;
+import domain.LaboratoryTest;
+import domain.ResultTest;
+import domain.RoleTest;
+import domain.SensorTest;
+import domain.UserTest;
+import table.FacultyTableModuleTest;
+import table.GrupaTableModuleTest;
+import table.LaboratoryTableModuleTest;
+import table.ResultTableModuleTest;
+import table.RoleTableModuleTest;
+import table.SensorTableModuleTest;
+import table.UserTableModuleTest;
+
+// quickly test all classes
 public class TestRunner {
 
 	public static void main(String[] args) {

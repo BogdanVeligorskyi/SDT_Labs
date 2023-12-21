@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-            
-    
-    <wb-module deploy-name="RemoteLabs_Dynamic">
-                        
-        
-        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                        
-        
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/META-INF"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/model"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/test"/>
-                        
-        
-        <property name="context-root" value="RemoteLabs_Dynamic"/>
-                        
-        
-        <property name="java-output-path" value="/RemoteLabs_Dynamic/build/classes"/>
                     
     
-    </wb-module>
+    
+    
+    <wb-module deploy-name="RemoteLabs_Dynamic">
+                                        
         
+        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                                        
+        
+        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+                                
+        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+                        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/model"/>
+                        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/test"/>
+                                        
+        
+        
+        
+        <property name="context-root" value="RemoteLabs_Dynamic"/>
+                                        
+        
+        
+        
+        <property name="java-output-path" value="/RemoteLabs_Dynamic/build/classes"/>
+                                    
+    
+    
+    
+    </wb-module>
+                
+
+
 
 </project-modules>

@@ -5,10 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+// programmable DB setup
 public class DbConnector {
 
 	private static String dbFullName = "dbRemoteLabs";
-	private static String url = "jdbc:mysql://localhost:3306/" + dbFullName;;
+	private static String url = 
+			"jdbc:mysql://localhost:3306/" + dbFullName;;
 	private static Properties prop = new Properties();
 	static private  Connection conn;
 	static{		
