@@ -11,16 +11,6 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/x
 		<class>ua.cn.stu.remotelabs.Sensor</class>
 		<class>ua.cn.stu.remotelabs.User</class>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" 
-			value="com.mysql.cj.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url"	
-			value="jdbc:mysql://localhost:3306/dbRemoteLabs" />
-			<property name="javax.persistence.jdbc.user" 
-			value="root" />
-			<property name="javax.persistence.jdbc.password" 
-			value="Ltlkmjif12" />
-			<property name="javax.persistence.jdbc.createDatabaseIfNotExist" 
-			value="true" />
 		</properties>
      
      </persistence-unit>
